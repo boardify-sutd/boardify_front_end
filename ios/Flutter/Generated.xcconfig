@@ -1,7 +1,7 @@
 // This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=/Users/seanlew/Desktop/flutter
-FLUTTER_APPLICATION_PATH=/Users/seanlew/Desktop/boardify_front_end/frontend
-FLUTTER_TARGET=/Users/seanlew/Desktop/boardify_front_end/frontend/lib/main.dart
+FLUTTER_APPLICATION_PATH=/Users/seanlew/Desktop/boardify_front_end
+FLUTTER_TARGET=/Users/seanlew/Desktop/boardify_front_end/lib/main.dart
 FLUTTER_BUILD_DIR=build
 SYMROOT=${SOURCE_ROOT}/../build/ios
 FLUTTER_FRAMEWORK_DIR=/Users/seanlew/Desktop/flutter/bin/cache/artifacts/engine/ios
