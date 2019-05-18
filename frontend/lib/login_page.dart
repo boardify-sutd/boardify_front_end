@@ -3,16 +3,23 @@ import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
-
+  
   @override
   _LoginPageState createState() => new _LoginPageState();
 
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool _isChecked = false;
   @override
   Widget build(BuildContext context) {
     
+    void onChanged(bool value){
+      setState(){
+        _isChecked = value;
+      }
+    };
+
     final logo = Hero(
       tag: 'hero',
       child: CircleAvatar(
@@ -54,6 +61,9 @@ class _LoginPageState extends State<LoginPage> {
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () {
+          //routing here should depend on whether it is a new user
+          //new user => Registration page
+          //old user => Home Page
           Route route = MaterialPageRoute(builder: (context) => HomePage());
           Navigator.push(context, route);
         },
@@ -64,13 +74,20 @@ class _LoginPageState extends State<LoginPage> {
       );
     
 
-      final forgotLabel = FlatButton(
-        child: Text('Forgot password?', 
-        style: TextStyle(color: Colors.black54),
-        ),
-        onPressed:() {},
-      );
+    final forgotLabel = FlatButton(
+      child: Text('Forgot password?', 
+      style: TextStyle(color: Colors.black54),
+      ),
+      onPressed:() {},
+    );
     
+    final checkBox = new CheckboxListTile(
+      title: new Text('Remember me'),
+      value: _isChecked, 
+      onChanged: (bool value){onChanged(value);}
+    );
+
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
@@ -83,10 +100,15 @@ class _LoginPageState extends State<LoginPage> {
             email,
             SizedBox(height: 8.0),
             password,
-            SizedBox(height:24.0),
+            new CheckboxListTile(title:Text('Remember me'),value:_isChecked,onChanged: (bool value){
+                setState((
+                    ) {_isChecked=value;});
+            }),
             loginButton,
-            forgotLabel
+            forgotLabel,
+            
             ],
+            
         )
       ,)
     );
