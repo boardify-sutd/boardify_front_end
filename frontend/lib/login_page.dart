@@ -11,7 +11,20 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isChecked = false;
-  
+  final GlobalKey<ScaffoldState> _scaffoldstate = new GlobalKey<ScaffoldState>();
+
+  void _showSnackBar(){
+    //if password is wrong
+    _scaffoldstate.currentState.showSnackBar(new SnackBar(
+      content: new Text('Wrong password. Please try again!'),
+    ));
+  }
+
+  bool _verify(){
+    //should be a call to lionell's API to verify user
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     final logo = Hero(
@@ -58,8 +71,12 @@ class _LoginPageState extends State<LoginPage> {
           //routing here should depend on whether it is a new user
           //new user => Registration page
           //old user => Home Page
-          Route route = MaterialPageRoute(builder: (context) => HomePage());
-          Navigator.push(context, route);
+          if(!_verify()){
+            _showSnackBar();
+          }else{
+            Route route = MaterialPageRoute(builder: (context) => HomePage());
+            Navigator.push(context, route);
+          }
         },
         padding: EdgeInsets.all(12),
         color: Colors.lightBlueAccent,
@@ -84,8 +101,8 @@ class _LoginPageState extends State<LoginPage> {
       }
     );
 
-
     return Scaffold(
+      key: _scaffoldstate,
       backgroundColor: Colors.white,
       body: Center(
         child: ListView(
