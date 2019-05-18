@@ -11,15 +11,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isChecked = false;
+  
   @override
   Widget build(BuildContext context) {
-    
-    void onChanged(bool value){
-      setState(){
-        _isChecked = value;
-      }
-    };
-
     final logo = Hero(
       tag: 'hero',
       child: CircleAvatar(
@@ -73,7 +67,6 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
     
-
     final forgotLabel = FlatButton(
       child: Text('Forgot password?', 
       style: TextStyle(color: Colors.black54),
@@ -84,7 +77,11 @@ class _LoginPageState extends State<LoginPage> {
     final checkBox = new CheckboxListTile(
       title: new Text('Remember me'),
       value: _isChecked, 
-      onChanged: (bool value){onChanged(value);}
+      onChanged: (bool value){
+        setState(() {
+          _isChecked=value;}
+          );
+      }
     );
 
 
@@ -100,15 +97,10 @@ class _LoginPageState extends State<LoginPage> {
             email,
             SizedBox(height: 8.0),
             password,
-            new CheckboxListTile(title:Text('Remember me'),value:_isChecked,onChanged: (bool value){
-                setState((
-                    ) {_isChecked=value;});
-            }),
+            checkBox,
             loginButton,
             forgotLabel,
-            
-            ],
-            
+          ],
         )
       ,)
     );
