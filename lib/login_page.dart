@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
 
   bool _verify(){
     //should be a call to lionell's API to verify user
-    return false;
+    return true;
   }
 
   @override
