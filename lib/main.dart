@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
 import 'splash_screen.dart';
+import 'registration_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.lightBlue,
           fontFamily: 'Nunito',
         ),
-        home: SplashScreen());
+        home: RegistrationPage());
   }
 }
 
