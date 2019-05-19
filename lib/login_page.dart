@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
     );
     
     final checkBox = new CheckboxListTile(
-      title: new Text('Remember me'),
+      title: new Text('Stay logged in.'),
       value: _isChecked, 
       onChanged: (bool value){
         setState(() {

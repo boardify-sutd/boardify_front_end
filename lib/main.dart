@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.lightBlue,
           fontFamily: 'Nunito',
         ),
-        home: LoginPage());
+        home: SplashScreen());
   }
 }
 
