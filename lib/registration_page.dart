@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'splashscreen_page.dart';
+import 'onboarding_page.dart';
 
 class RegistrationPage extends StatefulWidget {
   @override
@@ -19,6 +21,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
         backgroundColor: Colors.teal,
       ),
+
       body: Container(
           padding: EdgeInsets.all(10.0),
           child: Column(
@@ -40,6 +43,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0))),
               ),
+
               Padding(
                 padding: EdgeInsets.only(top: 20.0),
               ),
@@ -51,6 +55,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0))),
               ),
+
               Padding(
                 padding: EdgeInsets.only(top: 20.0),
               ),
@@ -120,7 +125,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Route route = MaterialPageRoute(builder: (context) => SplashScreenPage());
+                      Navigator.push(context, route);
+                    },
                     padding: EdgeInsets.all(12),
                     color: Colors.redAccent,
                     child:
@@ -130,7 +138,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Route route = MaterialPageRoute(builder: (context) => OnBoardingPage());
+                      Navigator.push(context, route);
+                    },
                     padding: EdgeInsets.all(12),
                     color: Colors.lightBlueAccent,
                     child:
