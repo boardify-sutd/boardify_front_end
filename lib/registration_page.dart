@@ -10,16 +10,16 @@ class RegistrationPage extends StatefulWidget {
 class _RegistrationPageState extends State<RegistrationPage> {
   bool _isChecked = false;
   String _currentYearSelected;
-  String _studentID;
+  String _email;
+  int _studentid;
+  String _password; 
   List<String> _gradYear = ['2019', '2020', '2021', '2022', '2023'];
   final _formKey = GlobalKey<FormState>();
+  BuildContext scaffoldContext;
 
   @override
   Widget build(BuildContext context) {
-    
-    String _email;
-    String _password;
-    bool _autoValidate = false;
+  
     // TODO: implement build
     return Scaffold(
         appBar: AppBar(
@@ -27,7 +27,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
           backgroundColor: Colors.teal,
         ),
-        body: Padding(
+        body: Builder(
+          builder: (BuildContext context){
+            return Padding(
               padding: EdgeInsets.all(10.0),
               child: Form(
                 key: _formKey,
@@ -41,9 +43,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             borderRadius: BorderRadius.circular(20.0))),
                     keyboardType: TextInputType.emailAddress,
                     validator: (String value){
+                      Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                      RegExp regex = new RegExp(pattern);
+                      
                       if (value.isEmpty) {
                         return 'Please enter your email';
+                      }else if(!regex.hasMatch(value)){
+                        return 'Enter valid email';
                       }
+                    },
+                    onSaved: (String value){
+                      _email = value;
+                      print(_email);
                     },
                   ),
                   Padding(
@@ -57,11 +69,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0))),
                     validator: (String value){
+                      Pattern pattern = r'^[0-9]{7}$';
+                      RegExp regex = new RegExp(pattern);
                       if (value.isEmpty) {
                         return 'Please enter your student ID';
-                      }                    
+                      }else if (!regex.hasMatch(value)){
+                        return 'Enter valid student ID';
+                      }
                     },
-                    onSaved: (value) => _email = value,
+                    onSaved: (String value) {
+                      _studentid = int.parse(value); 
+                      print(_studentid);
+                      }
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 20.0),
@@ -170,13 +189,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           borderRadius: BorderRadius.circular(24),
                         ),
                         onPressed: () {
-                          if (_formKey.currentState.validate()){
+                          print(_currentYearSelected);
+                          if (_formKey.currentState.validate() && _isChecked){
                             _formKey.currentState.save();
                             Route route = MaterialPageRoute(
                               builder: (context) => OnBoardingPage());
                             Navigator.push(context, route);
-                          }
-                          
+                          }else if (!_isChecked){
+                            Scaffold.of(context).showSnackBar(SnackBar(content: Text('Have you agreed to the terms and conditions?')));
+                          }                          
                         },
                         padding: EdgeInsets.all(12),
                         color: Colors.lightBlueAccent,
@@ -189,25 +210,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ],
               ),
               )
-        ));
-
-        String _validateEmail(String value) {
-          if(value.isEmpty) {
-            return "Enter email address";
-          }
-          // This is just a regular expression for email addresses
-          String p = "[a-zA-Z0-9\+\.\_\%\-\+]{1,256}" +
-          "\\@" +
-          "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
-          "(" +
-          "\\." +
-          "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
-          ")+";
-          RegExp regExp = new RegExp(p);
-          if (regExp.hasMatch(value)) {
-              return null;
-          }
-          return 'Email is not valid';
-        }
+          );
+          } ,
+        )
+      );
   }
 }
