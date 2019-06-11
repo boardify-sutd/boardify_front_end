@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'splashscreen_page.dart';
 import 'onboarding_page.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class RegistrationPage extends StatefulWidget {
   @override
@@ -13,9 +16,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
   String _email;
   int _studentid;
   String _password; 
+
   List<String> _gradYear = ['2019', '2020', '2021', '2022', '2023'];
   final _formKey = GlobalKey<FormState>();
   BuildContext scaffoldContext;
+
+  final _studentidController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +43,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 key: _formKey,
                 child:Column(
                 children: <Widget>[
-                  TextFormField(                   
+                  TextFormField(   
+                    controller:  _emailController,              
                     decoration: InputDecoration(
                         hintText: 'Email',
                         labelText: 'Email',
@@ -46,7 +55,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                       RegExp regex = new RegExp(pattern);
-                      
+                    
                       if (value.isEmpty) {
                         return 'Please enter your email';
                       }else if(!regex.hasMatch(value)){
@@ -62,6 +71,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     padding: EdgeInsets.only(top: 20.0),
                   ),
                   TextFormField(
+                    controller: _studentidController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         hintText: 'Student ID',
@@ -86,6 +96,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     padding: EdgeInsets.only(top: 20.0),
                   ),
                   TextFormField(
+                    controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                         hintText: 'Password',
@@ -173,7 +184,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           borderRadius: BorderRadius.circular(24),
                         ),
                         onPressed: () {
-
+                            
                           Route route = MaterialPageRoute(
                               builder: (context) => SplashScreenPage());
                           Navigator.push(context, route);
@@ -215,4 +226,39 @@ class _RegistrationPageState extends State<RegistrationPage> {
         )
       );
   }
+}
+
+
+class User {
+  final String email;
+  final int studentid;
+  final String password;
+
+  User({this.email, this.studentid, this.password});
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      email: json['email'],
+      studentid: json['studentid'],
+      password: json['password']
+    );
+  }
+
+  Map toMap() {
+    var map = new Map<String, dynamic>();
+    map['email'] = email;
+    map['studentid'] = studentid;
+    map['password'] = password;
+  }
+}
+
+Future<User> createUser (String url, {Map body}) async {
+  return http.post(url, body: body).then((http.Response response) {
+    final int statusCode = response.statusCode;
+
+    if (statusCode< 200 || statusCode > 400 ||json == null) {
+      throw new Exception("Error while fetching data");
+    }
+    return User.fromJson(json.decode(response.body));
+  });
 }

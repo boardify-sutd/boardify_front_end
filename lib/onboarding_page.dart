@@ -51,8 +51,11 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text('Welcome to Boardify',style:TextStyle(fontSize:24, fontWeight: FontWeight.bold)),
-                  getStarted],
+                  Text('Welcome to Boardify',
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  getStarted
+                ],
               ),
               color: Colors.amber,
             ),
@@ -86,4 +89,3 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     );
   }
 }
-
