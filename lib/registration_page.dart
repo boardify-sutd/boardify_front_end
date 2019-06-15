@@ -199,16 +199,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
-                        onPressed: () {
-                          print(_currentYearSelected);
-                          if (_formKey.currentState.validate() && _isChecked){
-                            _formKey.currentState.save();
-                            Route route = MaterialPageRoute(
-                              builder: (context) => OnBoardingPage());
-                            Navigator.push(context, route);
-                          }else if (!_isChecked){
-                            Scaffold.of(context).showSnackBar(SnackBar(content: Text('Have you agreed to the terms and conditions?')));
-                          }                          
+                        onPressed: () async{
+                          User newUser = User(email: _emailController.text,studentid: _studentidController.text,password: _passwordController.text);
+                          User u = await createUser("https://lionellloh.localhost.run/register/",body:newUser.toMap());
+                          print (u.email);
+                          // if (_formKey.currentState.validate() && _isChecked){
+                          //   _formKey.currentState.save();
+                          //   print(_emailController);
+                          //   Route route = MaterialPageRoute(
+                          //     builder: (context) => OnBoardingPage());
+                          //   Navigator.push(context, route);
+                          // }else if (!_isChecked){
+                          //   Scaffold.of(context).showSnackBar(SnackBar(content: Text('Have you agreed to the terms and conditions?')));
+                          // }                          
                         },
                         padding: EdgeInsets.all(12),
                         color: Colors.lightBlueAccent,
@@ -231,7 +234,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
 class User {
   final String email;
-  final int studentid;
+  final String studentid;
   final String password;
 
   User({this.email, this.studentid, this.password});
