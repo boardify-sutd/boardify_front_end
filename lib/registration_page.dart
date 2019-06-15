@@ -199,19 +199,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
-                        onPressed: () async{
-                          User newUser = User(email: _emailController.text,studentid: _studentidController.text,password: _passwordController.text);
-                          User u = await createUser("https://lionellloh.localhost.run/register/",body:newUser.toMap());
-                          print (u.email);
-                          // if (_formKey.currentState.validate() && _isChecked){
-                          //   _formKey.currentState.save();
-                          //   print(_emailController);
-                          //   Route route = MaterialPageRoute(
-                          //     builder: (context) => OnBoardingPage());
-                          //   Navigator.push(context, route);
-                          // }else if (!_isChecked){
-                          //   Scaffold.of(context).showSnackBar(SnackBar(content: Text('Have you agreed to the terms and conditions?')));
-                          // }                          
+                        onPressed: () async{                        
+                          if (_formKey.currentState.validate() && _isChecked){
+                            _formKey.currentState.save();
+                            User newUser = User(email: _emailController.text,username: _studentidController.text,password: _passwordController.text);
+                            User u = await createUser("http://lionellloh.localhost.run/api/user/register/",body:newUser.toMap());
+                            if(u.email == _emailController.text){
+                              Route route = MaterialPageRoute(
+                              builder: (context) => OnBoardingPage());
+                              Navigator.push(context, route);
+                            }else{
+                              print(u.email);
+                            }
+                          }else if (!_isChecked){
+                            Scaffold.of(context).showSnackBar(SnackBar(content: Text('Have you agreed to the terms and conditions?')));
+                          }                          
                         },
                         padding: EdgeInsets.all(12),
                         color: Colors.lightBlueAccent,
@@ -234,15 +236,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
 class User {
   final String email;
-  final String studentid;
+  final String username;
   final String password;
 
-  User({this.email, this.studentid, this.password});
+  User({this.email, this.username, this.password});
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       email: json['email'],
-      studentid: json['studentid'],
+      username: json['studentid'],
       password: json['password']
     );
   }
@@ -250,18 +252,22 @@ class User {
   Map toMap() {
     var map = new Map<String, dynamic>();
     map['email'] = email;
-    map['studentid'] = studentid;
+    map['username'] = username;
     map['password'] = password;
+
+    return map;
   }
 }
 
 Future<User> createUser (String url, {Map body}) async {
   return http.post(url, body: body).then((http.Response response) {
     final int statusCode = response.statusCode;
+    print ('status code: ' + statusCode.toString());
 
     if (statusCode< 200 || statusCode > 400 ||json == null) {
       throw new Exception("Error while fetching data");
     }
+    
     return User.fromJson(json.decode(response.body));
   });
 }
