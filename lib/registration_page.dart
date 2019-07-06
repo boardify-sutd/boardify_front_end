@@ -13,9 +13,7 @@ class RegistrationPage extends StatefulWidget {
 class _RegistrationPageState extends State<RegistrationPage> {
   bool _isChecked = false;
   String _currentYearSelected;
-  String _email;
-  int _studentid;
-  String _password; 
+
 
   List<String> _gradYear = ['2019', '2020', '2021', '2022', '2023'];
   final _formKey = GlobalKey<FormState>();
@@ -33,7 +31,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         appBar: AppBar(
           title: Text('Registration',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-          backgroundColor: Colors.teal,
+          backgroundColor: Theme.of(context).primaryColor,
         ),
         body: Builder(
           builder: (BuildContext context){
@@ -41,7 +39,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               padding: EdgeInsets.all(10.0),
               child: Form(
                 key: _formKey,
-                child:Column(
+                child:ListView(
                 children: <Widget>[
                   TextFormField(   
                     controller:  _emailController,              
@@ -63,8 +61,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       }
                     },
                     onSaved: (String value){
-                      _email = value;
-                      print(_email);
+
                     },
                   ),
                   Padding(
@@ -88,8 +85,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       }
                     },
                     onSaved: (String value) {
-                      _studentid = int.parse(value); 
-                      print(_studentid);
+
                       }
                   ),
                   Padding(
@@ -109,6 +105,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         return 'Please enter a password';
                       }
                     },
+                      onSaved: (String value) {
+
+                      }
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 20.0),
@@ -122,7 +121,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             borderRadius: BorderRadius.circular(20.0))),
                     validator: (String value){
                       if (value.isEmpty) {
-                        return 'Please enter an email';
+                        return 'Please confirm your password';
+                      }else if (value != _passwordController.text){
+                        return 'Please check to make sure your passwords match';
                       }
                     },
                   ),
@@ -190,7 +191,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           Navigator.push(context, route);
                         },
                         padding: EdgeInsets.all(12),
-                        color: Colors.redAccent,
+                        color: Theme.of(context).primaryColor,
                         child: Text('Cancel',
                             style:
                                 TextStyle(color: Colors.white, fontSize: 18)),
@@ -203,20 +204,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           if (_formKey.currentState.validate() && _isChecked){
                             _formKey.currentState.save();
                             User newUser = User(email: _emailController.text,username: _studentidController.text,password: _passwordController.text);
-                            User u = await createUser("http://lionellloh.localhost.run/api/user/register/",body:newUser.toMap());
-                            if(u.email == _emailController.text){
+                            final response = await http.post("http://lionellloh.localhost.run/api/user/register/",body:newUser.toMap());
+                            print(response.statusCode);
+                            if(response.statusCode == 201){
                               Route route = MaterialPageRoute(
                               builder: (context) => OnBoardingPage());
                               Navigator.push(context, route);
                             }else{
-                              print(u.email);
+                              Scaffold.of(context).showSnackBar(SnackBar(content: Text('This email is already used')));
                             }
                           }else if (!_isChecked){
                             Scaffold.of(context).showSnackBar(SnackBar(content: Text('Have you agreed to the terms and conditions?')));
                           }                          
                         },
                         padding: EdgeInsets.all(12),
-                        color: Colors.lightBlueAccent,
+                        color: Theme.of(context).primaryColor,
                         child: Text('Register',
                             style:
                                 TextStyle(color: Colors.white, fontSize: 18)),
@@ -241,7 +243,8 @@ class User {
 
   User({this.email, this.username, this.password});
 
-  factory User.fromJson(Map<String, dynamic> json) {
+  //Deserialize Json
+  factory User. m(Map<String, dynamic> json) {
     return User(
       email: json['email'],
       username: json['studentid'],
@@ -257,17 +260,4 @@ class User {
 
     return map;
   }
-}
-
-Future<User> createUser (String url, {Map body}) async {
-  return http.post(url, body: body).then((http.Response response) {
-    final int statusCode = response.statusCode;
-    print ('status code: ' + statusCode.toString());
-
-    if (statusCode< 200 || statusCode > 400 ||json == null) {
-      throw new Exception("Error while fetching data");
-    }
-    
-    return User.fromJson(json.decode(response.body));
-  });
 }

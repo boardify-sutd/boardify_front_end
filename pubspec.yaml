@@ -45,10 +45,12 @@ flutter:
   assets:
     - assets/boardify_logo.png
     - assets/alucard.jpg
+    - assets/BoardifyLogo.png
+    - assets/whiteboardlogo.png
   fonts:
-    - family: Nunito
+    - family: Futura
       fonts:
-       - asset: assets/Nunito.ttf
+       - asset: assets/futura/FuturaBold.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

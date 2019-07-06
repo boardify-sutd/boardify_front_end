@@ -15,11 +15,14 @@ class MyApp extends StatelessWidget {
         title: 'Boardify', 
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.lightBlue,
-          fontFamily: 'Nunito',
+          primaryColor:  Color(0xFF34495E),
+          fontFamily: 'Futura',
         ),
         home: SplashScreenPage());
   }
 }
 
+Color hexToColor(String code) {
+  return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+}
 //Difference between stateful(keep track of certain data) and stateless(does not care about any data)
