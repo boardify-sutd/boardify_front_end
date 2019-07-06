@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sat Jul 06 15:09:55 SGT 2019
+#Sun Jul 07 01:08:50 SGT 2019
 4.path=flutter_assets/AssetManifest.json
 13.baseType=DIRECTORY
 8.set=ASSET
@@ -32,7 +32,7 @@
 2.baseType=DIRECTORY
 10.baseType=DIRECTORY
 15.baseType=DIRECTORY
-1.path=flutter_assets/assets/futura/FuturaBold.ttf
+1.path=flutter_assets/assets/whiteboardlogo.png
 7.baseType=DIRECTORY
 3.path=flutter_assets/assets/BoardifyLogo.png
 10.set=ASSET
@@ -68,4 +68,4 @@ count=17
 0.path=flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
 12.set=ASSET
 1.set=ASSET
-2.path=flutter_assets/assets/whiteboardlogo.png
+2.path=flutter_assets/assets/futura/FuturaBold.ttf

@@ -123,7 +123,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       if (value.isEmpty) {
                         return 'Please confirm your password';
                       }else if (value != _passwordController.text){
-                        return 'Please check to make sure your passwords match';
+                        return 'Please check to make sure your  passwords match';
                       }
                     },
                   ),

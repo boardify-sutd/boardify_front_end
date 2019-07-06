@@ -1,0 +1,4 @@
+com.example.frontend
+drawable launch_background
+mipmap ic_launcher
+style LaunchTheme

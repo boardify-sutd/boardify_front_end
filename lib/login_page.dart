@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'home_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -87,8 +88,14 @@ class _LoginPageState extends State<LoginPage> {
                 email: _emailController.text,
                 username:"test",
                 password: _passwordController.text);
+            if(_isChecked) {
+              saveLoginPreference(_emailController.text,_passwordController.text).then((bool committed) {
+                print("save is successful");
+//              Route route = MaterialPageRoute(builder: (context) => HomePage());
+//               Navigator.push(context, route);
+              });
+            }
             print('login email: '+newLogin.email + '\nlogin username: '+newLogin.username+ '\nlogin password: ' +newLogin.password);
-
 
 //            final response = await http.post(
 //                "http://lionellloh.localhost.run/api/user/login/",
@@ -174,6 +181,15 @@ class Login {
 
     return map;
   }
+}
+
+Future<bool> saveLoginPreference(String email,String password) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString("password", password);
+  prefs.setString("email", email);
+  prefs.setBool('stayLogin', true);
+  return prefs.commit();
+
 }
 
 

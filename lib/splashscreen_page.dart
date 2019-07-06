@@ -65,8 +65,6 @@ class SplashScreenPage extends StatelessWidget {
                   ],
                 )
               ),
-
-
             ],
           ),
         ));
