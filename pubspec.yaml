@@ -28,6 +28,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   dots_indicator: ^0.0.4
   http: ^0.12.0
+  intro_views_flutter:
+    git: git://github.com/aagarwal1012/IntroViews-Flutter
 
 
 dev_dependencies:
@@ -50,6 +52,14 @@ flutter:
     - assets/alucard.jpg
     - assets/BoardifyLogo.png
     - assets/whiteboardlogo.png
+    - assets/air-hostess.png
+    - assets/airplane.png
+    - bus.png
+    - bus-driver.png
+    - hotel.png
+    - taxi.png
+    - taxi-driver.png
+    - waiter.png
   fonts:
     - family: Futura
       fonts:

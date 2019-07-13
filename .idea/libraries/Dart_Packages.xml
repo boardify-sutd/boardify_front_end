@@ -72,6 +72,13 @@
             </list>
           </value>
         </entry>
+        <entry key="intro_views_flutter">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../flutter/.pub-cache/git/IntroViews-Flutter-349a89924c5a2bb7ed823ec6661e2a8c0ae603e5/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="matcher">
           <value>
             <list>
@@ -180,6 +187,7 @@
       </option>
     </properties>
     <CLASSES>
+      <root url="file://$PROJECT_DIR$/../flutter/.pub-cache/git/IntroViews-Flutter-349a89924c5a2bb7ed823ec6661e2a8c0ae603e5/lib" />
       <root url="file://$PROJECT_DIR$/../flutter/.pub-cache/hosted/pub.dartlang.org/async-2.1.0/lib" />
       <root url="file://$PROJECT_DIR$/../flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-1.0.4/lib" />
       <root url="file://$PROJECT_DIR$/../flutter/.pub-cache/hosted/pub.dartlang.org/charcode-1.1.2/lib" />

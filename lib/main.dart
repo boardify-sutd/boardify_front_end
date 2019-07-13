@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'login_page.dart';
 import 'onboarding_page.dart';
 import 'registration_page.dart';
+import 'home_page.dart';
 import 'splashscreen_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'onboarding1_page.dart';
+
 Future<void> main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool _stayLogin = prefs.getBool('stayLogin');
-  print(_stayLogin);
+
 
   runApp(MaterialApp(
     title: 'Boardify',
@@ -16,7 +19,7 @@ Future<void> main() async {
       primaryColor:  Color(0xFF34495E),
       fontFamily: 'Futura',
     ),
-    home: _stayLogin == true ? LoginPage() : SplashScreenPage()
+    home: _stayLogin == true ? HomePage() : OnBoardingPage1()
   ));
 }
 

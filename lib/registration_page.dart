@@ -203,16 +203,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         onPressed: () async{                        
                           if (_formKey.currentState.validate() && _isChecked){
                             _formKey.currentState.save();
-                            User newUser = User(email: _emailController.text,username: _studentidController.text,password: _passwordController.text);
-                            final response = await http.post("http://lionellloh.localhost.run/api/user/register/",body:newUser.toMap());
-                            print(response.statusCode);
-                            if(response.statusCode == 201){
+                            //User newUser = User(email: _emailController.text,username: _studentidController.text,password: _passwordController.text);
+                            //final response = await http.post("http://lionellloh.localhost.run/api/user/register/",body:newUser.toMap());
+                            //print(response.statusCode);
+                            //if(response.statusCode == 201){
                               Route route = MaterialPageRoute(
                               builder: (context) => OnBoardingPage());
                               Navigator.push(context, route);
-                            }else{
-                              Scaffold.of(context).showSnackBar(SnackBar(content: Text('This email is already used')));
-                            }
+                            //}else{
+                            //  Scaffold.of(context).showSnackBar(SnackBar(content: Text('This email is already used')));
+                            //}
                           }else if (!_isChecked){
                             Scaffold.of(context).showSnackBar(SnackBar(content: Text('Have you agreed to the terms and conditions?')));
                           }                          

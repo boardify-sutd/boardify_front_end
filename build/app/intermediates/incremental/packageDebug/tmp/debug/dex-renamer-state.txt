@@ -1,4 +1,4 @@
-#Sun Jul 07 01:08:48 SGT 2019
+#Sat Jul 13 18:50:43 SGT 2019
 base.0=/Users/seanlew/Desktop/boardify_front_end/build/app/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex

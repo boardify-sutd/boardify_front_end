@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'home_page.dart';
+import 'registration_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -19,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldstate =
       new GlobalKey<ScaffoldState>();
+
 
   void _showSnackBar() {
     //if password is wrong
@@ -96,7 +98,9 @@ class _LoginPageState extends State<LoginPage> {
               });
             }
             print('login email: '+newLogin.email + '\nlogin username: '+newLogin.username+ '\nlogin password: ' +newLogin.password);
-
+            print(_isChecked);
+              Route route = MaterialPageRoute(builder: (context) => HomePage());
+               Navigator.push(context, route);
 //            final response = await http.post(
 //                "http://lionellloh.localhost.run/api/user/login/",
 //                body: newLogin.toMap());
@@ -122,6 +126,17 @@ class _LoginPageState extends State<LoginPage> {
         style: TextStyle(color: Colors.black54),
       ),
       onPressed: () {},
+    );
+
+    final signupLabel = FlatButton (
+      child: Text(
+        'New user? Sign up here.',
+        style: TextStyle(color:Colors.blue[300]),
+      ),
+      onPressed: () {
+        Route route = MaterialPageRoute(builder: (context) => RegistrationPage());
+        Navigator.push(context, route);
+      },
     );
 
     final checkBox = new CheckboxListTile(
@@ -156,6 +171,7 @@ class _LoginPageState extends State<LoginPage> {
               checkBox,
               loginButton,
               forgotLabel,
+              signupLabel,
             ],
           ),
         ));
@@ -189,7 +205,6 @@ Future<bool> saveLoginPreference(String email,String password) async {
   prefs.setString("email", email);
   prefs.setBool('stayLogin', true);
   return prefs.commit();
-
 }
 
 

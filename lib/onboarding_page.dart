@@ -29,7 +29,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         ),
         onPressed: () {
           //should be routed to registration page
-          Route route = MaterialPageRoute(builder: (context) => LoginPage());
+          Route route = MaterialPageRoute(builder: (context) => HomePage());
           Navigator.push(context, route);
         },
         padding: EdgeInsets.all(12),
