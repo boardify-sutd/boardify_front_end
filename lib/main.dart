@@ -19,7 +19,7 @@ Future<void> main() async {
       primaryColor:  Color(0xFF34495E),
       fontFamily: 'Futura',
     ),
-    home: _stayLogin == true ? HomePage() : OnBoardingPage1()
+    home: _stayLogin == true ? HomePage() : LoginPage()
   ));
 }
 

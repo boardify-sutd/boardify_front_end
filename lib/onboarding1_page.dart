@@ -9,29 +9,29 @@ class OnBoardingPage1 extends StatelessWidget {
     PageViewModel(
         pageColor: const Color(0xFF03A9F4),
         // iconImageAssetPath: 'assets/air-hostess.png',
-        bubble: Image.asset('assets/air-hostess.png'),
+        bubble: Image.asset('assets/student.png'),
         body: Text(
-          'Haselfree  booking  of  flight  tickets  with  full  refund  on  cancelation',
+          'New whiteboards are updated immediately in real-time!',
         ),
         title: Text(
-          'Flights',
+          'Always Available',
         ),
         textStyle: TextStyle(fontFamily: 'Futura', color: Colors.white),
         mainImage: Image.asset(
-          'assets/airplane.png',
+          'assets/hourglass.png',
           height: 285.0,
           width: 285.0,
           alignment: Alignment.center,
         )),
     PageViewModel(
       pageColor: const Color(0xFF8BC34A),
-      iconImageAssetPath: 'assets/waiter.png',
+      iconImageAssetPath: 'assets/student-2.png',
       body: Text(
-        'We  work  for  the  comfort ,  enjoy  your  stay  at  our  beautiful  hotels',
+        'Whiteboards are sorted automatically by classes for you!',
       ),
-      title: Text('Hotels'),
+      title: Text('Stay Organized'),
       mainImage: Image.asset(
-        'assets/hotel.png',
+        'assets/folder.png',
         height: 285.0,
         width: 285.0,
         alignment: Alignment.center,
@@ -40,13 +40,13 @@ class OnBoardingPage1 extends StatelessWidget {
     ),
     PageViewModel(
       pageColor: const Color(0xFF607D8B),
-      iconImageAssetPath: 'assets/taxi-driver.png',
+      iconImageAssetPath: 'assets/student.png',
       body: Text(
-        'Easy  cab  booking  at  your  doorstep  with  cashless  payment  system',
+        'Find any whiteboards you need easily with keywords you remember!',
       ),
-      title: Text('Cabs'),
+      title: Text('Quick Search'),
       mainImage: Image.asset(
-        'assets/taxi.png',
+        'assets/paint.png',
         height: 285.0,
         width: 285.0,
         alignment: Alignment.center,

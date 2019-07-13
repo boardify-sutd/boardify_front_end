@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'splashscreen_page.dart';
+import 'onboarding1_page.dart';
 import 'onboarding_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -208,7 +209,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             //print(response.statusCode);
                             //if(response.statusCode == 201){
                               Route route = MaterialPageRoute(
-                              builder: (context) => OnBoardingPage());
+                              builder: (context) => OnBoardingPage1());
                               Navigator.push(context, route);
                             //}else{
                             //  Scaffold.of(context).showSnackBar(SnackBar(content: Text('This email is already used')));

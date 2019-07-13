@@ -60,6 +60,12 @@ flutter:
     - taxi.png
     - taxi-driver.png
     - waiter.png
+    - folder.png
+    - paint.png
+    - realtime.png
+    - hourglass.png
+    - student.png
+    - student-2.png
   fonts:
     - family: Futura
       fonts:
