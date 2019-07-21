@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:frontend/login_page.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -19,7 +20,9 @@ class _HomePage extends State<HomePage> {
           onPressed: (){
             removeLoginPreference().then((bool commited){
               print('removed login saved preferences');
-              Navigator.pop(context);
+              Route route = MaterialPageRoute(
+                  builder: (context) => LoginPage());
+              Navigator.push(context, route);
             });
           },
           child: Text('Log out'),

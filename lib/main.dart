@@ -31,8 +31,8 @@ Color hexToColor(String code) {
 //Difference between stateful(keep track of certain data) and stateless(does not care about any data)
 
 //Future<Null> checkStayLogin() async {
-//  bool _stayLogin = false;
-//  SharedPreferences prefs = await SharedPreferences.getInstance();
+//  bool _
+//  SharedPreferencstayLogin = false;es prefs = await SharedPreferences.getInstance();
 //  _stayLogin = prefs.getBool('stayLogin');
 //  if (_stayLogin){
 //    print('already login');

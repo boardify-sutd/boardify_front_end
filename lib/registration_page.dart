@@ -51,8 +51,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             borderRadius: BorderRadius.circular(20.0))),
                     keyboardType: TextInputType.emailAddress,
                     validator: (String value){
-                      Pattern pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                      Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                       RegExp regex = new RegExp(pattern);
                     
                       if (value.isEmpty) {
@@ -204,6 +203,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         onPressed: () async{                        
                           if (_formKey.currentState.validate() && _isChecked){
                             _formKey.currentState.save();
+
                             //User newUser = User(email: _emailController.text,username: _studentidController.text,password: _passwordController.text);
                             //final response = await http.post("http://lionellloh.localhost.run/api/user/register/",body:newUser.toMap());
                             //print(response.statusCode);
@@ -224,6 +224,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             style:
                                 TextStyle(color: Colors.white, fontSize: 18)),
                       ),
+                      RaisedButton(
+                        child: Text('Bypass'),
+                        onPressed: () {
+                            Route route = MaterialPageRoute(
+                                builder: (context) => OnBoardingPage1());
+                            Navigator.push(context, route);
+                        },
+                      )
                     ],
                   )
                 ],
@@ -245,7 +253,7 @@ class User {
   User({this.email, this.username, this.password});
 
   //Deserialize Json
-  factory User. m(Map<String, dynamic> json) {
+  factory User.fromJson(Map<String, dynamic> json) {
     return User(
       email: json['email'],
       username: json['studentid'],
@@ -262,3 +270,4 @@ class User {
     return map;
   }
 }
+
