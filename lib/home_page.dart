@@ -106,23 +106,68 @@ class DataSearch extends SearchDelegate<String>{
     //Show when someone searches for anything
     final suggestionList = query.isEmpty?recent:cities.where((p)=>p.startsWith(query)).toList();
 
-    return ListView.builder(
-        itemBuilder: (context,index) => ListTile(
-          onTap: () {
-            showResults(context);
-          },
-          leading: Icon(Icons.location_city),
-          title: RichText(text:TextSpan(
-            text: suggestionList[index].substring(0,query.length),
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            children: [TextSpan(
-              text:suggestionList[index].substring(query.length),
-              style: TextStyle(color: Colors.grey)
-            )]
-          ),
+    return
+      Container(
+      decoration: BoxDecoration(
+        color: Colors.grey.withOpacity(0.5)
+      ),
+      child: ListView.builder(
+          itemBuilder: (context,index) => ListTile(
+            onTap: () {
+              showResults(context);
+            },
+            leading: Icon(Icons.location_city),
+            title: RichText(text:TextSpan(
+              text: suggestionList[index].substring(0,query.length),
+              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              children: [TextSpan(
+                text:suggestionList[index].substring(query.length),
+                style: TextStyle(color: Colors.grey)
+              )]
+            ),
 
+            ),
           ),
-        ),
-    itemCount: suggestionList.length);
+      itemCount: suggestionList.length),
+    );
+  }
+}
+
+class TransparentRoute extends PageRoute<void> {
+  TransparentRoute({
+    @required this.builder,
+    RouteSettings settings,
+  })  : assert(builder != null),
+        super(settings: settings, fullscreenDialog: false);
+
+  final WidgetBuilder builder;
+
+  @override
+  bool get opaque => false;
+
+  @override
+  Color get barrierColor => null;
+
+  @override
+  String get barrierLabel => null;
+
+  @override
+  bool get maintainState => true;
+
+  @override
+  Duration get transitionDuration => Duration(milliseconds: 350);
+
+  @override
+  Widget buildPage(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation) {
+    final result = builder(context);
+    return FadeTransition(
+      opacity: Tween<double>(begin: 0, end: 1).animate(animation),
+      child: Semantics(
+        scopesRoute: true,
+        explicitChildNodes: true,
+        child: result,
+      ),
+    );
   }
 }
