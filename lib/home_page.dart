@@ -14,6 +14,11 @@ class _HomePage extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('HomePage'),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.search), onPressed:() {
+            showSearch(context: context, delegate: DataSearch());
+          })
+        ],
       ),
       body: Center (
         child: RaisedButton(
@@ -38,4 +43,86 @@ Future<bool> removeLoginPreference() async {
   prefs.remove("email");
   prefs.setBool('stayLogin', false);
   return prefs.commit();
+}
+
+class DataSearch extends SearchDelegate<String>{
+
+  final cities=[
+    "Singapore",
+    "Malaysia",
+    "China",
+    "America",
+    "Taiwan",
+    "Sydney",
+    "Sushi",
+    "SAYONARA"
+  ];
+
+  final recent=[
+    "America",
+    "Taiwan"
+  ];
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    //Actions for app bar
+    return [
+      IconButton(icon: Icon(Icons.clear), onPressed: () {
+        query = "";
+      })
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    //Leading icon on the left of the app bar
+    return IconButton(icon: AnimatedIcon(
+      icon: AnimatedIcons.menu_arrow,
+      progress: transitionAnimation,),
+        onPressed: (){
+          close(context,null);
+        });
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    //Show some results based on the selection
+    return Center(
+      child: Container(
+        height: 100,
+        width: 100,
+        child: Card(
+          color: Colors.red,
+          child: Center(
+            child: Text(query),
+          )
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    //Show when someone searches for anything
+    final suggestionList = query.isEmpty?recent:cities.where((p)=>p.startsWith(query)).toList();
+
+    return ListView.builder(
+        itemBuilder: (context,index) => ListTile(
+          onTap: () {
+            showResults(context);
+          },
+          leading: Icon(Icons.location_city),
+          title: RichText(text:TextSpan(
+            text: suggestionList[index].substring(0,query.length),
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            children: [TextSpan(
+              text:suggestionList[index].substring(query.length),
+              style: TextStyle(color: Colors.grey)
+            )]
+          ),
+
+          ),
+        ),
+    itemCount: suggestionList.length);
+  }
 }
