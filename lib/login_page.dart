@@ -15,13 +15,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
   final _passwordController = TextEditingController();
   final _emailController = TextEditingController();
   bool _isChecked = false;
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldstate =
       new GlobalKey<ScaffoldState>();
-
 
   void _showSnackBar() {
     //if password is wrong
@@ -40,7 +40,6 @@ class _LoginPageState extends State<LoginPage> {
     final logo = Hero(
       tag: 'hero',
       child: CircleAvatar(
-
         backgroundColor: Colors.transparent,
         radius: 200,
         child: Image.asset('assets/BoardifyLogo.png'),
@@ -89,32 +88,33 @@ class _LoginPageState extends State<LoginPage> {
           if (_formKey.currentState.validate()) {
             Login newLogin = Login(
                 email: _emailController.text,
-                username:"test",
                 password: _passwordController.text);
-            if(_isChecked) {
-              saveLoginPreference(_emailController.text,_passwordController.text).then((bool committed) {
+            if (_isChecked) {
+              saveLoginPreference(
+                      _emailController.text, _passwordController.text)
+                  .then((bool committed) {
                 print("save is successful");
 //              Route route = MaterialPageRoute(builder: (context) => HomePage());
 //               Navigator.push(context, route);
               });
-            }
-            print('login email: '+newLogin.email + '\nlogin username: '+newLogin.username+ '\nlogin password: ' +newLogin.password);
+            };
+            print(newLogin.toMap());
+            print('login email: '+newLogin.email+'\nlogin password: '+newLogin.password);
             print(_isChecked);
+            final response = await http.post(
+                "http://165.22.107.54/api/user/login/",
+                body: newLogin.toMap());
+            print(response.statusCode);
+            if(response.statusCode==200){
               Route route = MaterialPageRoute(builder: (context) => HomePage());
-               Navigator.push(context, route);
-//            final response = await http.post(
-//                "http://lionellloh.localhost.run/api/user/login/",
-//                body: newLogin.toMap());
-            
-            //add conditions for token and also sharedpreferences for the token for the next page
-//            print(response.statusCode);
-//            final decodedjson = jsonDecode(response.body);
-//            print(decodedjson);
-             //Route route = MaterialPageRoute(builder: (context) => HomePage());
-            // Navigator.push(context, route);
-          }
+              Navigator.push(context, route);
+            }else if(response.statusCode==400 && json.decode(response.body)['non_field_errors'][0]=="Unable to authenticate with provided credentials"){
+              _scaffoldstate.currentState.showSnackBar(SnackBar(content: Text('Invalid username or password. Please try again.')));
+            }else{
+              _scaffoldstate.currentState.showSnackBar(SnackBar(content: Text('Backend error, contact Admin.')));
+            };
+          };
         },
-
         padding: EdgeInsets.all(12),
         color: Theme.of(context).primaryColor,
         child: Text('Log In', style: TextStyle(color: Colors.white)),
@@ -129,13 +129,14 @@ class _LoginPageState extends State<LoginPage> {
       onPressed: () {},
     );
 
-    final signupLabel = FlatButton (
+    final signupLabel = FlatButton(
       child: Text(
         'New user? Sign up here.',
-        style: TextStyle(color:Colors.blue[300]),
+        style: TextStyle(color: Colors.blue[300]),
       ),
       onPressed: () {
-        Route route = MaterialPageRoute(builder: (context) => RegistrationPage());
+        Route route =
+            MaterialPageRoute(builder: (context) => RegistrationPage());
         Navigator.push(context, route);
       },
     );
@@ -157,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
             shrinkWrap: true,
             padding: EdgeInsets.only(left: 24.0, right: 24.0),
             children: <Widget>[
-              Image.asset('assets/BoardifyLogo.png',scale:0.8),
+              Image.asset('assets/BoardifyLogo.png', scale: 0.8),
               Form(
                 key: _formKey,
                 child: Column(
@@ -181,31 +182,28 @@ class _LoginPageState extends State<LoginPage> {
 
 class Login {
   final String email;
-  final String username;
   final String password;
 
-  Login({this.email, this.username, this.password});
+  Login({this.email, this.password});
 
   factory Login.fromJson(Map<String, dynamic> json) {
-    return Login(email: json['email'],username:json['username'], password: json['password']);
+    return Login(
+        email: json['email'],
+        password: json['password']);
   }
 
   Map toMap() {
     var map = new Map<String, dynamic>();
     map['email'] = email;
-    map['username'] = username;
     map['password'] = password;
-
     return map;
   }
 }
 
-Future<bool> saveLoginPreference(String email,String password) async {
+Future<bool> saveLoginPreference(String email, String password) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setString("password", password);
   prefs.setString("email", email);
   prefs.setBool('stayLogin', true);
   return prefs.commit();
 }
-
-

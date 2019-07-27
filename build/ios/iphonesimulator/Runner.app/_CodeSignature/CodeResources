@@ -82,7 +82,7 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		llyGWjqwPIXcnXSMnVerFoocXB4=
+		6YykPmsd5ID8pcUKIuFnrKi3p5M=
 		</data>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
@@ -114,7 +114,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		/pPJFhkS9imV1iMNCgnofF4RX3c=
+		oGfEm1vIHqmAvjKENUS15Ieyf1c=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -122,7 +122,7 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		c/CVc3N1wlbo9qHgTVMaG7OL6fA=
+		2N/Y0P71gH1P6HkxeLJSA5bqJPA=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<data>
@@ -134,7 +134,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/LICENSE</key>
 		<data>
-		hMe4EQncFxN04/swEpB69AxcJ1E=
+		6ru8VOJh8X0siaJxelyhzNWhcJ4=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/assets/BoardifyLogo.png</key>
 		<data>
@@ -222,7 +222,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		yzd5+oMUMQKWDVGCkR2R/wNuT1g=
+		zsjEdf6UjgLSZmodgKCIEhiiVN8=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -472,11 +472,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			llyGWjqwPIXcnXSMnVerFoocXB4=
+			6YykPmsd5ID8pcUKIuFnrKi3p5M=
 			</data>
 			<key>hash2</key>
 			<data>
-			/24zi5TthqBNgzrFs3e8RlG8z7iEFFX13epL1hrehi0=
+			1gH4qj8q/GdddnCAEuXJ8HuKyT6vyVoDFDnwH4uBgoA=
 			</data>
 		</dict>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
@@ -560,11 +560,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			/pPJFhkS9imV1iMNCgnofF4RX3c=
+			oGfEm1vIHqmAvjKENUS15Ieyf1c=
 			</data>
 			<key>hash2</key>
 			<data>
-			5TWVmPcl65uuFfgNYB19vuWBFs/mUlfZx+XgTEHA/IY=
+			pRvSQUGXwRygc5uAJNoUSptrDngYa1H29YlBFdxZwz8=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -582,11 +582,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			c/CVc3N1wlbo9qHgTVMaG7OL6fA=
+			2N/Y0P71gH1P6HkxeLJSA5bqJPA=
 			</data>
 			<key>hash2</key>
 			<data>
-			Hl5D2SxyMhE3Yz1Jc2mQCWvZL3tWFBX71yxsYzwj+y0=
+			O5nbTTe2Y6e48YwZkwAfqNWGj4UtVs72Onks+czARoE=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
@@ -615,11 +615,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			hMe4EQncFxN04/swEpB69AxcJ1E=
+			6ru8VOJh8X0siaJxelyhzNWhcJ4=
 			</data>
 			<key>hash2</key>
 			<data>
-			GlaUmYaYZxc2pZCZ5zITV3i7ICDYnDwxjbLo/g+fl4Y=
+			d2I29PIF/Mysr79D2KJMWg73QC6O4+MtvAmVvDot3D4=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/assets/BoardifyLogo.png</key>
@@ -857,11 +857,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			yzd5+oMUMQKWDVGCkR2R/wNuT1g=
+			zsjEdf6UjgLSZmodgKCIEhiiVN8=
 			</data>
 			<key>hash2</key>
 			<data>
-			IklAUzdySuRK/aZURgoXZP38hUU6JJiiW8w9KjgBiiY=
+			Mn1Iaf5SBHOzjz9I/xe47WomLg0DnN9hRZU5R6kn2EM=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>

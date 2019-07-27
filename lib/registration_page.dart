@@ -23,6 +23,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _studentidController = TextEditingController();
   final _passwordController = TextEditingController();
   final _emailController = TextEditingController();
+  final _usernameController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +115,26 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     padding: EdgeInsets.only(top: 20.0),
                   ),
                   TextFormField(
+                      controller: _usernameController,
+                      decoration: InputDecoration(
+                          hintText: 'Username',
+                          labelText: 'Username',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0))
+                      ),
+                      validator: (String value){
+                        if (value.isEmpty) {
+                          return 'Please enter a username';
+                        }
+                      },
+                      onSaved: (String value) {
+
+                      }
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20.0),
+                  ),
+                  TextFormField(
                     obscureText: true,
                     decoration: InputDecoration(
                         hintText: 'Confirm Password',
@@ -185,7 +207,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           borderRadius: BorderRadius.circular(24),
                         ),
                         onPressed: () {
-                            
                           Route route = MaterialPageRoute(
                               builder: (context) => SplashScreenPage());
                           Navigator.push(context, route);
@@ -203,17 +224,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         onPressed: () async{                        
                           if (_formKey.currentState.validate() && _isChecked){
                             _formKey.currentState.save();
+                            User newUser = User(email: _emailController.text,student_id: _studentidController.text,password: _passwordController.text, username:_usernameController.text, graduating_year: this._currentYearSelected);
+                            print (newUser.toMap());
+                            final response = await http.post("http://165.22.107.54/api/user/register/",body:newUser.toMap());
+                            print(response.statusCode);
 
-                            //User newUser = User(email: _emailController.text,username: _studentidController.text,password: _passwordController.text);
-                            //final response = await http.post("http://lionellloh.localhost.run/api/user/register/",body:newUser.toMap());
-                            //print(response.statusCode);
-                            //if(response.statusCode == 201){
+                            if(response.statusCode == 201){
+                              Scaffold.of(context).showSnackBar(SnackBar(content: Text('Registration Succesful!')));
                               Route route = MaterialPageRoute(
                               builder: (context) => OnBoardingPage1());
                               Navigator.push(context, route);
-                            //}else{
-                            //  Scaffold.of(context).showSnackBar(SnackBar(content: Text('This email is already used')));
-                            //}
+                            }else if (response.statusCode==400 && ((json.decode(response.body)['email'][0]) == "user with this email already exists")){
+                              Scaffold.of(context).showSnackBar(SnackBar(content: Text('This email is already used')));
+                            }else{
+                              Scaffold.of(context).showSnackBar(SnackBar(content: Text('Please make sure you have filled up the fields correctly')));
+                            }
                           }else if (!_isChecked){
                             Scaffold.of(context).showSnackBar(SnackBar(content: Text('Have you agreed to the terms and conditions?')));
                           }                          
@@ -249,15 +274,19 @@ class User {
   final String email;
   final String username;
   final String password;
+  final String student_id;
+  final String graduating_year;
 
-  User({this.email, this.username, this.password});
+  User({this.email, this.username, this.password, this.student_id, this.graduating_year});
 
   //Deserialize Json
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       email: json['email'],
-      username: json['studentid'],
-      password: json['password']
+      username: json['username'],
+      password: json['password'],
+      student_id: json['student_id'],
+      graduating_year: json['graduating_year']
     );
   }
 
@@ -266,6 +295,8 @@ class User {
     map['email'] = email;
     map['username'] = username;
     map['password'] = password;
+    map['student_id']= student_id;
+    map['graduating_year'] = graduating_year;
 
     return map;
   }
