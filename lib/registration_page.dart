@@ -5,6 +5,13 @@ import 'onboarding_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+//  You can generally ignore this page, i don't think you will have to deal with it.
+//  Included a bypass button so that you can skip past them
+//  In general you can also try registering your own email or any valid email that fits the regEx and then you should be able to login which should bring youi to the onboarding pages.
+//  Yet to make hyperlink or popup dialog for the actual terms and agreement that the user has to agree.
+//  Also Lionell's API for registration returns different keys for different errors. for example. "email":"Already in used" or "grad_year":"invalid format" etc. so it is hard for me to display different errors based on what is returned from the API so for now. So for now:
+//    Case 1: response code 200 -> Registration successful
+//    Case 2: response code 400 -> can either be email is already been used. All the other errors will then just prompt user to check if their fields are valid.
 
 class RegistrationPage extends StatefulWidget {
   @override
@@ -228,7 +235,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             print (newUser.toMap());
                             final response = await http.post("http://165.22.107.54/api/user/register/",body:newUser.toMap());
                             print(response.statusCode);
-
                             if(response.statusCode == 201){
                               Scaffold.of(context).showSnackBar(SnackBar(content: Text('Registration Succesful!')));
                               Route route = MaterialPageRoute(
@@ -269,6 +275,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 }
 
+//  Helps to define the user in a json format to send for the API
 
 class User {
   final String email;

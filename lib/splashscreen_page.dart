@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'login_page.dart';
 import 'registration_page.dart';
 
+//  Find this splashscreen page a bit redundant because from the Loginpage you already have an option to login directly or sign up as a new user.
+//  This page basically just shows a "Welcome" and then 2 buttons whether you want to log in as existing user or sign up as a new user.
 class SplashScreenPage extends StatelessWidget {
   static String tag = 'splashscreen-page';
 

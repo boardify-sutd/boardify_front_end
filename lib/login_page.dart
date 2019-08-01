@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'home_page.dart';
 import 'registration_page.dart';
-import 'searchbar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-
+//  This should be the only page that you will be interested in, adjust your page routing at line 94/95
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
 
@@ -20,20 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   bool _isChecked = false;
   final _formKey = GlobalKey<FormState>();
-  final GlobalKey<ScaffoldState> _scaffoldstate =
-      new GlobalKey<ScaffoldState>();
-
-  void _showSnackBar() {
-    //if password is wrong
-    _scaffoldstate.currentState.showSnackBar(new SnackBar(
-      content: new Text('Wrong password. Please try again!'),
-    ));
-  }
-
-  bool _verify() {
-    //should be a call to lionell's API to verify user
-    return true;
-  }
+  final GlobalKey<ScaffoldState> _scaffoldstate = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -89,25 +75,25 @@ class _LoginPageState extends State<LoginPage> {
             Login newLogin = Login(
                 email: _emailController.text,
                 password: _passwordController.text);
+            print(_isChecked);
             if (_isChecked) {
               saveLoginPreference(
                       _emailController.text, _passwordController.text)
                   .then((bool committed) {
                 print("save is successful");
-//              Route route = MaterialPageRoute(builder: (context) => HomePage());
-//               Navigator.push(context, route);
               });
             };
             print(newLogin.toMap());
-            print('login email: '+newLogin.email+'\nlogin password: '+newLogin.password);
-            print(_isChecked);
             final response = await http.post(
                 "http://165.22.107.54/api/user/login/",
                 body: newLogin.toMap());
             print(response.statusCode);
             if(response.statusCode==200){
-              Route route = MaterialPageRoute(builder: (context) => HomePage());
-              Navigator.push(context, route);
+              saveUserToken(json.decode(response.body)['token']).then((bool committed) {
+                print("User token"+ json.decode(response.body)['token']+ "saved");
+                Route route = MaterialPageRoute(builder: (context) => HomePage());
+                Navigator.push(context, route);
+              });
             }else if(response.statusCode==400 && json.decode(response.body)['non_field_errors'][0]=="Unable to authenticate with provided credentials"){
               _scaffoldstate.currentState.showSnackBar(SnackBar(content: Text('Invalid username or password. Please try again.')));
             }else{
@@ -207,3 +193,11 @@ Future<bool> saveLoginPreference(String email, String password) async {
   prefs.setBool('stayLogin', true);
   return prefs.commit();
 }
+
+Future<bool> saveUserToken(String token) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString("token", token);
+  return prefs.commit();
+}
+
+

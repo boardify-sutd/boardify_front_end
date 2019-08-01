@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:frontend/login_page.dart';
-
+// You should be REPLACING this page with the home page, but make sure to help me add in the removeLoginPreference() function and to call it onPressed() for your LOGOUT button to make sure that if the user logs out his shared preferences is deleted so that the next time the app starts up it will bring the new user back to the login page
 class HomePage extends StatefulWidget {
 
   @override
@@ -36,15 +36,18 @@ class _HomePage extends State<HomePage> {
     );
   }
 }
-
+// When user manually clicks log out it should erase all the shared preferences saved
 Future<bool> removeLoginPreference() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.remove("password");
   prefs.remove("email");
   prefs.setBool('stayLogin', false);
+  prefs.remove('token');
   return prefs.commit();
 }
 
+
+//  You can remove everything from here onwards, it was my attempt at the search bar thingy
 class DataSearch extends SearchDelegate<String>{
 
   final cities=[
